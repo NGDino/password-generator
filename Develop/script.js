@@ -10,9 +10,14 @@ const randomFunc = {
 };
 
 generateEl.addEventListener('click', () => {
-  const numberCharacters = window.prompt('How Many Characters?')
+  const length = +window.prompt('How Many Characters?');
+  const hasLower = confirm('Include Lower Case Letter?');
+  const hasUpper = confirm('Include Upper Case Letter?');
+  const hasNumber = confirm('Include Number?');
+  const hasSymbol = confirm('Include a Symbol?');
 
-  console.log(numberCharacters);
+  console.log (length)
+  console.log(hasLower,hasUpper,hasNumber,hasSymbol);
 
 } )
 
