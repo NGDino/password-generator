@@ -1,4 +1,5 @@
 //DOM elemens
+
 const resultEl = document.getElementById('password');
 const generateEl = document.getElementById('generate');
 
@@ -9,6 +10,8 @@ const randomFunc = {
   symbol: getRandomSymbol
 };
 
+
+//on click starts prompt for length then has confirms for other options
 generateEl.addEventListener('click', () => {
   const length = +window.prompt('How Many Characters?');
   const hasLower = confirm('Include Lower Case Letter?');
@@ -16,10 +19,52 @@ generateEl.addEventListener('click', () => {
   const hasNumber = confirm('Include Number?');
   const hasSymbol = confirm('Include a Symbol?');
 
-  console.log (length)
-  console.log(hasLower,hasUpper,hasNumber,hasSymbol);
+  resultEl.innerText = generatePassword(
+    hasLower,
+    hasUpper,
+    hasNumber,
+    hasSymbol,
+    length
+    );
 
-} )
+  //console.log(length)
+  } )
+
+//genarate password function
+function generatePassword(lower, upper, number, symbol, length) {
+// 1. initiate password variable
+//2.filter out from confirm answers
+//3. loop over length call generator function for each type
+//4. add final password to pw var and return
+let generatedPassword = '' ;
+
+const typesCount = lower + upper + number + symbol;
+
+//console.log('typesCont: ',typesCount);
+
+const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter
+(
+  item => Object.values(item)[0]
+  );
+
+//console.log('typesArr: ',typesArr)
+
+if(typesCount === 0) {
+  return '';
+}
+
+for(let i = 0; i < length; i += typesCount){
+  typesArr.forEach(type => {
+    const funcName = Object.keys(type)[0];
+    //console.log('funcName: ', funcName);
+
+    generatedPassword += randomFunc[funcName]();
+  });
+}
+const finalPassword = generatedPassword.slice(0, length);
+return finalPassword;
+  
+}
 
 /*given in assignment
 // Assignment Code
@@ -42,21 +87,21 @@ generateBtn.addEventListener("click", writePassword);
 function getRandomLower() {
   return String.fromCharCode(Math.floor(Math.random() * 26 ) + 97)
 }
-console.log(getRandomLower());
+//console.log(getRandomLower());
 
 function getRandomUpper() {
   return String.fromCharCode(Math.floor(Math.random() * 26 ) + 65)
 }
-console.log(getRandomUpper());
+//console.log(getRandomUpper());
 
 function getRandomNumber() {
   return String.fromCharCode(Math.floor(Math.random() * 10 ) + 48)
 }
-console.log(getRandomNumber());
+//console.log(getRandomNumber());
 
 function getRandomSymbol() {
   const symbols = '!"#$%&"()*+-/.:;<=>?@[]^_`{|}~'
   return symbols[Math.floor(Math.random() * symbols.length)]
 }
-console.log(getRandomSymbol());
+//console.log(getRandomSymbol());
 
