@@ -13,7 +13,10 @@ const randomFunc = {
 
 //on click starts prompt for length then has confirms for other options
 generateEl.addEventListener('click', () => {
-  const length = +window.prompt('How Many Characters?');
+  const length = +window.prompt('How Many Characters between 8-128?');
+    if (length >= 8 && length <= 128){ console.log(length)     
+    } else {return ''}
+
   const hasLower = confirm('Include Lower Case Letter?');
   const hasUpper = confirm('Include Upper Case Letter?');
   const hasNumber = confirm('Include Number?');
@@ -32,10 +35,7 @@ generateEl.addEventListener('click', () => {
 
 //genarate password function
 function generatePassword(lower, upper, number, symbol, length) {
-// 1. initiate password variable
-//2.filter out from confirm answers
-//3. loop over length call generator function for each type
-//4. add final password to pw var and return
+
 let generatedPassword = '' ;
 
 const typesCount = lower + upper + number + symbol;
@@ -65,23 +65,6 @@ const finalPassword = generatedPassword.slice(0, length);
 return finalPassword;
   
 }
-
-/*given in assignment
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
-
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
-}
-
-// Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
- */
 
 //generator functions
 function getRandomLower() {
